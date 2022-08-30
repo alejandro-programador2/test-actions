@@ -17,15 +17,11 @@ export const Icon = ({ name, size, addClass, ...props }) => {
       width="48"
       height="48"
       viewBox="0 0 48 48"
-      className={`${css["c-icon"]} ${css[`c-${size}`]}`}
+      className={`${css["c-icon"]} ${css[`c-${size}`]} ${addClass}`}
       aria-hidden="true"
       {...props}
     >
       <use xlinkHref={`./svg/${name}.svg#${name}`}></use>
-      {/* <path
-        id="check"
-        d="M18.9 35.7 7.7 24.5l2.15-2.15 9.05 9.05 19.2-19.2 2.15 2.15Z"
-      /> */}
     </svg>
   );
 };
@@ -36,4 +32,6 @@ Icon.propTypes = {
 
 Icon.defaultProps = {
   name: "close",
+  size: "normal",
+  addClass: "",
 };
