@@ -7,17 +7,17 @@
     "**commitlint.config.js": true,
     "**.gitignore": true,
     "**.eslintcache": true,
-    "**.eslintrc.json": true,
+    "**.eslintrc.json": false,
     "**.gitmodules": true,
     "**.prettierrc": true,
     "**package-lock.json": true,
     "**/.github": true
-  },
-  "[javascript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
-  },
-  "workbench.settings.editor": "json"
+  }
+  // "[javascript]": {
+  //   "editor.defaultFormatter": "esbenp.prettier-vscode"
+  // },
+  // "editor.codeActionsOnSave": {
+  //   "source.fixAll.eslint": true
+  // },
+  // "workbench.settings.editor": "json"
 }
