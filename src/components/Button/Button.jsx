@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { forwardRef, Fragment } from "react";
 import { Icon } from "../Icon/Icon";
-import css from "./Button.module.css";
+import css from "./Button.module.scss";
 import iconLibrary from "../Icon/Icon";
 
 /**
@@ -22,8 +22,10 @@ export const Button = forwardRef(
       size,
       icon,
       type,
+      variant,
       hasAriaLabel,
       disabled,
+      onClick,
       children,
       addClass,
       ...args
@@ -33,15 +35,20 @@ export const Button = forwardRef(
     return (
       <button
         ref={ref}
-        className={`flex ${css["c-button"]} ${css[`c-${size}`]} ${addClass}`}
-        disabled={disabled ? "" : undefined}
+        className={`${css["c-button"]} ${css[`c-${variant}`]} ${
+          css[`c-${size}`]
+        } ${
+          icon.name && hasAriaLabel ? css["c-round"] : ""
+        } u-flex ${addClass}`}
+        disabled={disabled}
         type={type}
-        aria-label={hasAriaLabel ? `${label}` : ""}
+        aria-label={hasAriaLabel ? `${label}` : undefined}
+        onClick={onClick}
         {...args}
       >
         {children}
         {icon.name && <Icon name={icon.name} size={icon.size} />}
-        {!hasAriaLabel ? <span>{label}</span> : <Fragment />}
+        {!hasAriaLabel ? label : ""}
       </button>
     );
   }
@@ -50,6 +57,7 @@ export const Button = forwardRef(
 Button.propTypes = {
   label: PropTypes.string,
   size: PropTypes.oneOf("small", "normal", "big"),
+  variant: PropTypes.oneOf("primary", "secondary"),
   type: PropTypes.oneOf("button", "submit", "reset"),
   hasAriaLabel: PropTypes.bool,
   icon: PropTypes.shape({
@@ -62,9 +70,15 @@ Button.propTypes = {
 };
 
 Button.defaultProps = {
-  styled: "primary",
   label: "Button",
-  addClass: "",
-  onClick: undefined,
+  size: "normal",
+  variant: "secondary",
+  type: "button",
   hasAriaLabel: false,
+  icon: {
+    name: "",
+  },
+  onClick: undefined,
+  disabled: false,
+  addClass: "",
 };
