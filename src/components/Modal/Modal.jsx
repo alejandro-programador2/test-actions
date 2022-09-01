@@ -44,7 +44,7 @@ export const Modal = ({ button, addClass, children, isOpen, ...props }) => {
         children={button.children}
         addClass={button.addClass}
         onClick={() => toggleModal(false)}
-        aria-haspopoup="dialog"
+        aria-haspopup="dialog"
       />
       {ReactDOM.createPortal(
         <>
