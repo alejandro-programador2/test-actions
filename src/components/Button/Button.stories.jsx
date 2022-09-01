@@ -13,7 +13,7 @@ export default {
       control: { type: "radio" },
     },
     variant: {
-      options: ["primary", "secondary"],
+      options: ["primary", "secondary", "no-line"],
       control: { type: "radio" },
     },
     hasAriaLabel: {
@@ -55,6 +55,17 @@ textAndIcon.args = {
   size: "normal",
   icon: {
     name: "volume_off",
+  },
+};
+
+export const textAndIconReverted = Template.bind({});
+textAndIconReverted.args = {
+  variant: "primary",
+  label: "Button",
+  size: "normal",
+  icon: {
+    name: "close",
+    position: "right",
   },
 };
 
