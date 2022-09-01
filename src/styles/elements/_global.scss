@@ -1,5 +1,7 @@
 body {
   font-size: var(--fs-300);
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
 }
 
 /**
@@ -7,23 +9,23 @@ body {
     them with custom properties for easier personalization
 **/
 
-:is(a, button, input, textarea, summary, [tabindex="0"]) {
+:where(a, button, input, textarea, summary, [tabindex="0"]) {
   --outline-size: max(2px, 0.08em); /* Outline thickness | Minimum 2px */
   --outline-style: solid; /* Outline's line style (solid, dashed or dotted)  */
   --outline-color: currentColor; /*Outline's color (uses text's color by default) */
 }
 
-:is(a, button, input, textarea, summary, [tabindex="0"]):focus {
+:where(a, button, input, textarea, summary, [tabindex="0"]):focus {
   outline: var(--outline-size) var(--outline-style) var(--outline-color);
   outline-offset: var(--outline-offset, var(--outline-size));
 }
 
 @supports selector(:focus-visible) {
-  :is(a, button, input, textarea, summary, [tabindex="0"]):focus {
+  :where(a, button, input, textarea, summary, [tabindex="0"]):focus {
     outline: none;
   }
 
-  :is(a, button, input, textarea, summary, [tabindex="0"]):focus-visible {
+  :where(a, button, input, textarea, summary, [tabindex="0"]):focus-visible {
     outline: var(--outline-size) var(--outline-style) var(--outline-color);
     outline-offset: var(--outline-offset, var(--outline-size));
   }
