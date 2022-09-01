@@ -1,14 +1,75 @@
-import { Button } from "components/buttons/Button";
+import { Accordion } from "components/Accordion/Accordion";
+import { AccordionItem } from "components/Accordion/AccordionItem";
+import { AccordionPanel } from "components/Accordion/AccordionPanel";
+import { AccordionButton } from "components/Accordion/AccordionButton";
 
 export const App = () => {
    return (
-      <>
-         <Button label="#43302b" primary />
+   <div style={{ maxWidth: '45vw'}}>
+	   <Accordion  allowMultiple defaultIndex={[0]}>
+	
+	<AccordionItem>
+		<AccordionButton>
+			<span>Open!</span>
+		</AccordionButton>
+			
+		<AccordionPanel>
+			<p>
+			Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+			</p>
+		</AccordionPanel>
+	</AccordionItem>
 
-         <p className="u-text-primary-900">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Omnis perferendis, cumque sint ea, sed fugit voluptate explicabo ipsum quibusdam
-            quia dolorum voluptates deleniti quaerat aspernatur? Optio saepe fugit
-         </p>
-      </>
+	<AccordionItem>
+		<AccordionButton>
+			<span>Open!</span>
+		</AccordionButton>
+		
+		<AccordionPanel>
+			<p>
+				Second accordion
+			</p>
+		</AccordionPanel>
+	</AccordionItem>
+
+
+	<AccordionItem>
+		<AccordionButton>
+			<span>Open!</span>
+		</AccordionButton>
+		
+		<AccordionPanel>
+			<p>
+				Third accordion
+			</p>
+		</AccordionPanel>
+	</AccordionItem>
+
+
+	<AccordionItem>
+		<AccordionButton>
+			<span>Open!</span>
+		</AccordionButton>
+		
+		<AccordionPanel>
+			<p>
+				Fourth accordion
+			</p>
+		</AccordionPanel>
+	</AccordionItem>
+
+	<AccordionItem>
+		<AccordionButton>
+			<span>Open!</span>
+		</AccordionButton>
+		
+		<AccordionPanel>
+			<p>
+				Second accordion
+			</p>
+		</AccordionPanel>
+	</AccordionItem>
+</Accordion>
+   </div>
    );
 };
