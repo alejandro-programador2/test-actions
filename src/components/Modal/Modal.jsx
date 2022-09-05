@@ -4,27 +4,48 @@ import PropTypes from "prop-types";
 import ReactDOM from "react-dom";
 import { Button } from "../Button/Button";
 import css from "./Modal.module.scss";
-import iconLibrary from "../Icon/Icon";
+import { iconList } from "../Icon/Icon";
 
 export const Modal = ({ button, addClass, children, isOpen, ...props }) => {
   const [hiddenModal, setHiddenModal] = useState(true);
   const refButton = useRef(null);
   const refModal = useRef(null);
 
+  const closeModalOnEsc = (e) => {
+    if ((e.keyCode || e.which) === 27) {
+      const root = document.querySelector("#root");
+      setHiddenModal(true);
+      root.inert = false;
+      refButton.current.focus();
+    }
+  };
+
   const toggleModal = (state) => {
     const noModalZones = document.querySelector("#root");
     setHiddenModal(state);
     noModalZones.inert = !state;
-    if (state === true) {
-      refButton.current.focus();
-    } else {
-      refModal.current.focus();
-    }
+    // if (state === true) {
+    //   refButton.current.focus();
+    // } else {
+    //   console.log("Flag");
+    //   refModal.current.focus();
+    //   console.log(document.activeElement);
+    // }
+    // console.log(document.activeElement);
   };
 
   useEffect(() => {
+    // const root = document.querySelector("#root");
+    // root.inert = !hiddenModal;
     isOpen && isOpen(!hiddenModal);
-  }, [hiddenModal]);
+    if (hiddenModal) {
+      refButton.current.focus();
+      // refModal.current.removeEventListener("keydown", closeModalOnEsc);
+    } else {
+      refModal.current.focus();
+      // refModal.current.addEventListener("keydown", closeModalOnEsc);
+    }
+  }, [hiddenModal, isOpen]);
 
   return (
     <>
@@ -58,6 +79,7 @@ export const Modal = ({ button, addClass, children, isOpen, ...props }) => {
             hidden={hiddenModal}
             aria-label={button.label}
             ref={refModal}
+            onKeyDown={closeModalOnEsc}
             aria-modal="true"
             className={`${css["c-modal"]} u-px-3 u-py-3 ${addClass}`}
             {...props}
@@ -88,7 +110,7 @@ Modal.propTypes = {
     type: PropTypes.oneOf(["button", "submit", "reset"]),
     hasAriaLabel: PropTypes.bool,
     icon: PropTypes.shape({
-      name: PropTypes.oneOf(iconLibrary),
+      name: PropTypes.oneOf(iconList),
       size: PropTypes.oneOf(["small", "normal", "big"]),
       position: PropTypes.oneOf(["left", "right"]),
     }),

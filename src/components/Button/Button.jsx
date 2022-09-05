@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import { forwardRef } from "react";
 import { Icon } from "../Icon/Icon";
 import css from "./Button.module.scss";
-import iconLibrary from "../Icon/Icon";
+import { iconList } from "../Icon/Icon";
 
 /**
  * Usuario: bb-frontend-7
@@ -61,7 +61,7 @@ Button.propTypes = {
   type: PropTypes.oneOf(["button", "submit", "reset"]),
   hasAriaLabel: PropTypes.bool,
   icon: PropTypes.shape({
-    name: PropTypes.oneOf(iconLibrary),
+    name: PropTypes.oneOf(iconList),
     size: PropTypes.oneOf(["small", "normal", "big"]),
     position: PropTypes.oneOf(["left", "right"]),
   }),

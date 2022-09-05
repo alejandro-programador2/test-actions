@@ -1,6 +1,5 @@
 import _uniqueId from "lodash/uniqueId";
 import PropTypes from "prop-types";
-import { useEffect, useState } from "react";
 import { Icon } from "../Icon/Icon";
 import css from "./CheckBox.module.scss";
 
@@ -14,8 +13,6 @@ import css from "./CheckBox.module.scss";
  **/
 
 export const CheckBox = ({ type, label, state, name, addClass, ...args }) => {
-  const [check, setCheck] = useState(false);
-  // const [getStateIcon, setStateIcon] = useState("");
   const id = _uniqueId("ui-");
 
   const handleIconName = () => {
@@ -30,29 +27,6 @@ export const CheckBox = ({ type, label, state, name, addClass, ...args }) => {
     }
   };
 
-  // useEffect(() => {
-  //   function validateIcon(element) {
-  //     if (stateInput) {
-  //       if (stateInput === "Error") {
-  //         setStateIcon("close");
-  //         element.classList.add(css["input-error"]);
-  //       } else if (stateInput === "Succes") {
-  //         setStateIcon("check");
-  //         element.classList.add(css["input-succes"]);
-  //       } else {
-  //         setStateIcon("check");
-  //       }
-  //     } else {
-  //       setStateIcon("");
-  //     }
-  //   }
-  //   function initInputIcon() {
-  //     const $contentIcon = document.querySelector(`#${id}Icon`);
-  //     validateIcon($contentIcon);
-  //   }
-  //   initInputIcon();
-  // });
-
   return (
     <label
       htmlFor={id}
@@ -65,11 +39,9 @@ export const CheckBox = ({ type, label, state, name, addClass, ...args }) => {
         <input
           className={css["c-input__check"]}
           data-state={state}
-          defaultChecked={check}
           type={type}
           id={id}
           name={name}
-          // data-selector={inputSelector}
         />
         <div className={css["c-input__icon"]}>
           <Icon name={handleIconName()} />
