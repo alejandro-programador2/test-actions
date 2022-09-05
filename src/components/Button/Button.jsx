@@ -37,9 +37,9 @@ export const Button = forwardRef(
         className={`${css["c-button"]} ${css[`c-${variant}`]} ${
           css[`c-${size}`]
         } ${icon && icon.name && hasAriaLabel ? css["c-round"] : ""} 
-        ${
-          icon && icon.position === "right" ? css["c-reverse"] : ""
-        } u-flex ${addClass}`}
+        ${icon && icon.position === "right" ? css["c-reverse"] : ""} u-flex ${
+          addClass ?? ""
+        }`}
         disabled={disabled}
         type={type}
         aria-label={hasAriaLabel ? `${label}` : undefined}

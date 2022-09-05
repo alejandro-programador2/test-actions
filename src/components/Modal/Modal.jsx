@@ -3,15 +3,19 @@ import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
 import "wicg-inert";
 import { Button } from "../Button/Button";
-import iconList from "../Icon/Icon";
 import css from "./Modal.module.scss";
 import { iconList } from "../Icon/Icon";
 
 export const Modal = ({ button, addClass, children, isOpen, ...props }) => {
+  // Estado que oculta o muestra el modal
   const [hiddenModal, setHiddenModal] = useState(true);
   const refButton = useRef(null);
   const refModal = useRef(null);
 
+  /**
+   * Cierra el modal al presionar la tecla Esc
+   * @param {event} e - Evento del teclado
+   */
   const closeModalOnEsc = (e) => {
     if ((e.keyCode || e.which) === 27) {
       const root = document.querySelector("#root");
@@ -21,6 +25,10 @@ export const Modal = ({ button, addClass, children, isOpen, ...props }) => {
     }
   };
 
+  /**
+   * Cambia el estado del modal entre escondido y visible
+   * @param {boolean} state - Estado del modal (false para que se visible, true para que se esconda)
+   */
   const toggleModal = (state) => {
     const noModalZones = document.querySelector("#root");
     setHiddenModal(state);
@@ -70,7 +78,7 @@ export const Modal = ({ button, addClass, children, isOpen, ...props }) => {
             ref={refModal}
             onKeyDown={closeModalOnEsc}
             aria-modal="true"
-            className={`${css["c-modal"]} u-px-3 u-py-3 ${addClass}`}
+            className={`${css["c-modal"]} u-px-3 u-py-3 ${addClass ?? ""}`}
             {...props}
           >
             <div className={`${css["c-modal-container"]} u-flow`}>
@@ -121,10 +129,6 @@ Modal.propTypes = {
 Modal.defaultProps = {
   button: {
     label: "Abrir modal",
-    icon: {
-      name: "",
-    },
   },
   addClass: "",
-  isOpen: undefined,
 };
