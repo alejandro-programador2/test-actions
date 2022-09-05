@@ -1,8 +1,9 @@
-import "wicg-inert";
 import { useEffect, useRef, useState } from "react";
-import PropTypes from "prop-types";
 import ReactDOM from "react-dom";
+import PropTypes from "prop-types";
+import "wicg-inert";
 import { Button } from "../Button/Button";
+import iconList from "../Icon/Icon";
 import css from "./Modal.module.scss";
 import { iconList } from "../Icon/Icon";
 
@@ -24,26 +25,14 @@ export const Modal = ({ button, addClass, children, isOpen, ...props }) => {
     const noModalZones = document.querySelector("#root");
     setHiddenModal(state);
     noModalZones.inert = !state;
-    // if (state === true) {
-    //   refButton.current.focus();
-    // } else {
-    //   console.log("Flag");
-    //   refModal.current.focus();
-    //   console.log(document.activeElement);
-    // }
-    // console.log(document.activeElement);
   };
 
   useEffect(() => {
-    // const root = document.querySelector("#root");
-    // root.inert = !hiddenModal;
     isOpen && isOpen(!hiddenModal);
     if (hiddenModal) {
       refButton.current.focus();
-      // refModal.current.removeEventListener("keydown", closeModalOnEsc);
     } else {
       refModal.current.focus();
-      // refModal.current.addEventListener("keydown", closeModalOnEsc);
     }
   }, [hiddenModal, isOpen]);
 
@@ -112,11 +101,18 @@ Modal.propTypes = {
     icon: PropTypes.shape({
       name: PropTypes.oneOf(iconList),
       size: PropTypes.oneOf(["small", "normal", "big"]),
-      position: PropTypes.oneOf(["left", "right"]),
+      variant: PropTypes.oneOf(["primary", "secondary", "no-line"]),
+      type: PropTypes.oneOf(["button", "submit", "reset"]),
+      hasAriaLabel: PropTypes.bool,
+      icon: PropTypes.shape({
+        name: PropTypes.oneOf(iconList),
+        size: PropTypes.oneOf(["small", "normal", "big"]),
+        position: PropTypes.oneOf(["left", "right"]),
+      }),
+      disabled: PropTypes.bool,
+      onClick: PropTypes.func,
+      addClass: PropTypes.string,
     }),
-    disabled: PropTypes.bool,
-    onClick: PropTypes.func,
-    addClass: PropTypes.string,
   }),
   addClass: PropTypes.string,
   isOpen: PropTypes.func,

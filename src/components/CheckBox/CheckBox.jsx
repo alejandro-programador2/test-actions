@@ -30,7 +30,7 @@ export const CheckBox = ({ type, label, state, name, addClass, ...args }) => {
   return (
     <label
       htmlFor={id}
-      className={`${css["c-input"]} u-flex ${addClass}`}
+      className={`${css["c-input"]} u-flex ${addClass ?? ""}`}
       data-state={state}
       data-type={type}
       {...args}
@@ -65,5 +65,4 @@ CheckBox.defaultProps = {
   state: "normal",
   type: "radio",
   name: "option1",
-  addClass: "",
 };
