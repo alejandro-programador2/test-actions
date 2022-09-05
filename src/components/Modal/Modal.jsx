@@ -44,7 +44,6 @@ export const Modal = ({ button, addClass, children, isOpen, ...props }) => {
         children={button.children}
         addClass={button.addClass}
         onClick={() => toggleModal(false)}
-        aria-description="Contiene modal"
       />
       {ReactDOM.createPortal(
         <>
