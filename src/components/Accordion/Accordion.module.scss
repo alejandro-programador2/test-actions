@@ -12,6 +12,7 @@
     width: 100%;
     padding: 0.5rem 1rem;
     align-items: center;
+    justify-content: space-between;
     background: transparent;
     cursor: pointer;
     transition: all 0.2s ease 0s;
@@ -34,21 +35,10 @@
 
 :where(.c-accordion__panel--active) {
     height: auto;
-}
-
-:where(.test) {
-    transition: height 8s ease 0s, ;
+    transition: height 0.8s ease-in-out;
 }
 
 
-:where(.c-accordion_animate-open, .c-accordion_animate-close) {
-    transition: opacity 1s ease 0ms;
-}
-
-:where(.c-accordion_animate-close) {
-    opacity: 0;
-    display: none;
-}
 
 :where(.c-accordion__panel-content) {
     padding: 0.5rem 1rem 1rem;
