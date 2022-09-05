@@ -46,7 +46,6 @@ export const Modal = ({ button, addClass, children, isOpen, ...props }) => {
             children={button.children}
             addClass={button.addClass}
             onClick={() => toggleModal(false)}
-            aria-haspopup="dialog"
          />
          {ReactDOM.createPortal(
             <>
@@ -86,7 +85,7 @@ Modal.propTypes = {
       type: PropTypes.oneOf(["button", "submit", "reset"]),
       hasAriaLabel: PropTypes.bool,
       icon: PropTypes.shape({
-         name: PropTypes.oneOf([iconList]),
+         name: PropTypes.oneOf(iconList),
          size: PropTypes.oneOf(["small", "normal", "big"]),
          position: PropTypes.oneOf(["left", "right"]),
       }),
@@ -102,5 +101,4 @@ Modal.defaultProps = {
    button: {
       label: "Abrir modal",
    },
-   addClass: "",
 };

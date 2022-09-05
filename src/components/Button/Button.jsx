@@ -36,6 +36,7 @@ export const Button = forwardRef(({ label, size, icon, type, variant, hasAriaLab
 });
 
 Button.propTypes = {
+<<<<<<< HEAD
    children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.arrayOf(PropTypes.element), PropTypes.element, PropTypes.node]),
    label: PropTypes.string.isRequired,
    size: PropTypes.oneOf(["small", "normal", "big"]),
@@ -50,6 +51,21 @@ Button.propTypes = {
    disabled: PropTypes.bool,
    onClick: PropTypes.func,
    addClass: PropTypes.string,
+=======
+  label: PropTypes.string.isRequired,
+  size: PropTypes.oneOf(["small", "normal", "big"]),
+  variant: PropTypes.oneOf(["primary", "secondary", "no-line"]),
+  type: PropTypes.oneOf(["button", "submit", "reset"]),
+  hasAriaLabel: PropTypes.bool,
+  icon: PropTypes.shape({
+    name: PropTypes.oneOf(iconLibrary),
+    size: PropTypes.oneOf(["small", "normal", "big"]),
+    position: PropTypes.oneOf(["left", "right"]),
+  }),
+  disabled: PropTypes.bool,
+  onClick: PropTypes.func,
+  addClass: PropTypes.string,
+>>>>>>> 431c6c3d4fc3cdf9103afe00ee611311fba25948
 };
 
 Button.defaultProps = {

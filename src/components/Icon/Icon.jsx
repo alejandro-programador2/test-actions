@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import css from "./Icon.module.scss";
 
-export const iconList = ["close", "check", "play", "pause", "volume_on", "volume_off"];
+export const iconList = ["close", "check", "play", "pause", "volume_on", "volume_off", "done_all"];
 
 export const Icon = ({ name, size, addClass, ...props }) => {
    return (
