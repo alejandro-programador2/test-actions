@@ -44,7 +44,6 @@ export const Modal = ({ button, addClass, children, isOpen, ...props }) => {
         children={button.children}
         addClass={button.addClass}
         onClick={() => toggleModal(false)}
-        aria-haspopup="dialog"
       />
       {ReactDOM.createPortal(
         <>
@@ -84,14 +83,14 @@ export const Modal = ({ button, addClass, children, isOpen, ...props }) => {
 Modal.propTypes = {
   button: PropTypes.shape({
     label: PropTypes.string.isRequired,
-    size: PropTypes.oneOf("small", "normal", "big"),
-    variant: PropTypes.oneOf("primary", "secondary", "no-line"),
-    type: PropTypes.oneOf("button", "submit", "reset"),
+    size: PropTypes.oneOf(["small", "normal", "big"]),
+    variant: PropTypes.oneOf(["primary", "secondary", "no-line"]),
+    type: PropTypes.oneOf(["button", "submit", "reset"]),
     hasAriaLabel: PropTypes.bool,
     icon: PropTypes.shape({
       name: PropTypes.oneOf(iconLibrary),
-      size: PropTypes.oneOf("small", "normal", "big"),
-      position: PropTypes.oneOf("left", "right"),
+      size: PropTypes.oneOf(["small", "normal", "big"]),
+      position: PropTypes.oneOf(["left", "right"]),
     }),
     disabled: PropTypes.bool,
     onClick: PropTypes.func,
