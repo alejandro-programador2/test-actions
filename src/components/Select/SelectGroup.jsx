@@ -1,8 +1,6 @@
 import { useState, Children, cloneElement, isValidElement, useEffect } from "react";
 import PropTypes from "prop-types";
 
-import { getChildrenByType } from "utils/validations/getChildrenType";
-
 export const SelectGroup = ({ children: childrenProps, onAllSelect }) => {
    // Estado para controlar el valor de los select
    const [allSelect, setAllSelect] = useState([]);
@@ -22,12 +20,17 @@ export const SelectGroup = ({ children: childrenProps, onAllSelect }) => {
    const children = Children.map(childrenProps, (child) => {
       if (!isValidElement(child)) return null;
 
-      // Agregamos la función onAddSelect para obtener le valor del select
-      return cloneElement(child, { ...child.props, onChoise: onAddSelect });
+      // Comprueba si el child es de tipo Select
+      if (child?.props?.__TYPE === "Select") {
+         // Agregamos la función onAddSelect para obtener le valor del select
+         return cloneElement(child, { ...child.props, onChoise: onAddSelect });
+      }
+
+      return child;
    });
 
    /* Filtramos los children para solo aceptar de tipo Select. */
-   return getChildrenByType(children, ["Select"]);
+   return children;
 };
 
 SelectGroup.propTypes = {
