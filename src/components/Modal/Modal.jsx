@@ -44,7 +44,7 @@ export const Modal = ({ button, addClass, children, isOpen, ...props }) => {
       } else {
          refModal.current.focus();
       }
-   }, [hiddenModal, isOpen]);
+   }, [hiddenModal]);
 
    return (
       <>
