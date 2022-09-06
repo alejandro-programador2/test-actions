@@ -1,6 +1,6 @@
 import _uniqueId from "lodash/uniqueId";
 import PropTypes from "prop-types";
-import { useState } from "react";
+// import { useState } from "react";
 import { Icon } from "../Icon/Icon";
 import css from "./CheckBox.module.scss";
 
@@ -14,46 +14,46 @@ import css from "./CheckBox.module.scss";
  **/
 
 export const CheckBox = ({ type, label, state, name, addClass, ...args }) => {
-  const [check, setCheck] = useState(false);
-  // const [getStateIcon, setStateIcon] = useState("");
-  const id = _uniqueId("ui-");
+   // const [check, setCheck] = useState(false);
+   // const [getStateIcon, setStateIcon] = useState("");
+   const id = _uniqueId("ui-");
 
-  const handleIconName = () => {
-    if (state === "right") {
-      return "done_all";
-    } else if (state === "wrong") {
-      return "close";
-    } else if (type === "checkbox" && state === "normal") {
-      return "check";
-    } else {
-      return "";
-    }
-  };
+   const handleIconName = () => {
+      if (state === "right") {
+         return "done_all";
+      } else if (state === "wrong") {
+         return "close";
+      } else if (type === "checkbox" && state === "normal") {
+         return "check";
+      } else {
+         return "";
+      }
+   };
 
-  return (
-    <label htmlFor={id} className={`${css["c-input"]} u-flex ${addClass ?? ""}`} data-state={state} data-type={type} {...args}>
-      <div className={css["c-input__box"]}>
-        <input className={css["c-input__check"]} data-state={state} defaultChecked={check} type={type} id={id} name={name} />
-        <div className={css["c-input__icon"]}>
-          <Icon name={handleIconName()} />
-        </div>
-      </div>
-      <span className={css["c-input__label"]}>{label}</span>
-    </label>
-  );
+   return (
+      <label htmlFor={id} className={`${css["c-input"]} u-flex ${addClass ?? ""}`} data-state={state} data-type={type} {...args}>
+         <div className={css["c-input__box"]}>
+            <input className={css["c-input__check"]} data-state={state} type={type} id={id} name={name} />
+            <div className={css["c-input__icon"]}>
+               <Icon name={handleIconName()} />
+            </div>
+         </div>
+         <span className={css["c-input__label"]}>{label}</span>
+      </label>
+   );
 };
 
 CheckBox.propTypes = {
-  label: PropTypes.string.isRequired,
-  state: PropTypes.oneOf(["normal", "right", "wrong"]),
-  type: PropTypes.oneOf(["radio", "checkbox"]),
-  name: PropTypes.string,
-  addClass: PropTypes.string,
+   label: PropTypes.string.isRequired,
+   state: PropTypes.oneOf(["normal", "right", "wrong"]),
+   type: PropTypes.oneOf(["radio", "checkbox"]),
+   name: PropTypes.string,
+   addClass: PropTypes.string,
 };
 
 CheckBox.defaultProps = {
-  label: "Label",
-  state: "normal",
-  type: "radio",
-  name: "option1",
+   label: "Label",
+   state: "normal",
+   type: "radio",
+   name: "option1",
 };
