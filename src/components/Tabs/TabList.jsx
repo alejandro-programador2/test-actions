@@ -77,7 +77,6 @@ TabList.propTypes = {
 
 TabList.defaultProps = {
    __TYPE: "TabList",
-   addClass: "",
    label: "Simple tabs",
    orientation: "horizontal",
 };

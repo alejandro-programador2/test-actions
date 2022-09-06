@@ -1,6 +1,6 @@
-import _uniqueId from "lodash/uniqueId";
 import PropTypes from "prop-types";
-// import { useState } from "react";
+import _uniqueId from "lodash/uniqueId";
+
 import { Icon } from "../Icon/Icon";
 import css from "./CheckBox.module.scss";
 
@@ -14,8 +14,6 @@ import css from "./CheckBox.module.scss";
  **/
 
 export const CheckBox = ({ type, label, state, name, addClass, ...args }) => {
-   // const [check, setCheck] = useState(false);
-   // const [getStateIcon, setStateIcon] = useState("");
    const id = _uniqueId("ui-");
 
    const handleIconName = () => {
@@ -26,7 +24,7 @@ export const CheckBox = ({ type, label, state, name, addClass, ...args }) => {
       } else if (type === "checkbox" && state === "normal") {
          return "check";
       } else {
-         return "";
+         return null;
       }
    };
 

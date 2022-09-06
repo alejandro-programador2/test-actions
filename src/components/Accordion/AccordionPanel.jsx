@@ -5,7 +5,7 @@ import css from "./Accordion.module.scss";
 export const AccordionPanel = ({ children, isExpanded, addClass, ...props }) => {
    return (
       <div className={`${isExpanded ? css["c-accordion__panel--active"] : css["c-accordion__panel"]} ${css["c-accordion-animated"]}`} {...props}>
-         <div className={`${css["c-accordion__panel-content"]} ${addClass && addClass}`} aria-hidden={isExpanded}>
+         <div className={`${css["c-accordion__panel-content"]} ${addClass ?? ""}`} aria-hidden={isExpanded}>
             {children}
          </div>
       </div>
@@ -21,5 +21,4 @@ AccordionPanel.propTypes = {
 
 AccordionPanel.defaultProps = {
    __TYPE: "AccordionPanel",
-   addClass: "",
 };

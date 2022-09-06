@@ -1,8 +1,7 @@
 import { forwardRef } from "react";
 import PropTypes from "prop-types";
 
-import iconList, { Icon } from "../Icon/Icon";
-
+import { Icon, iconList } from "../Icon/Icon";
 import css from "./Button.module.scss";
 
 /**
@@ -21,7 +20,7 @@ export const Button = forwardRef(({ label, size, icon, type, variant, hasAriaLab
       <button
          ref={ref}
          className={`${css["c-button"]} ${css[`c-${variant}`]} ${css[`c-${size}`]} ${icon && icon.name && hasAriaLabel ? css["c-round"] : ""} 
-        ${icon && icon.position === "right" ? css["c-reverse"] : ""} u-flex ${addClass}`}
+        ${icon && icon.position === "right" ? css["c-reverse"] : ""} u-flex ${addClass ?? ""}`}
          disabled={disabled}
          type={type}
          aria-label={hasAriaLabel ? `${label}` : undefined}
@@ -43,7 +42,7 @@ Button.propTypes = {
    type: PropTypes.oneOf(["button", "submit", "reset"]),
    hasAriaLabel: PropTypes.bool,
    icon: PropTypes.shape({
-      name: PropTypes.oneOf([iconList]),
+      name: PropTypes.oneOf(iconList),
       size: PropTypes.oneOf(["small", "normal", "big"]),
       position: PropTypes.oneOf(["left", "right"]),
    }),
@@ -58,5 +57,4 @@ Button.defaultProps = {
    variant: "primary",
    type: "button",
    hasAriaLabel: false,
-   addClass: "",
 };

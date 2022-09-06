@@ -6,6 +6,10 @@ import css from "./Icon.module.scss";
 export const iconList = ["close", "check", "play", "pause", "volume_on", "volume_off", "done_all"];
 
 export const Icon = ({ name, size, addClass, ...props }) => {
+   if (!name) {
+      return null;
+   }
+
    return (
       <svg
          xmlns="http://www.w3.org/2000/svg"
@@ -29,7 +33,6 @@ Icon.propTypes = {
 };
 
 Icon.defaultProps = {
-   name: "close",
    size: "normal",
    __TYPE: "Icon",
 };
