@@ -22,10 +22,10 @@ export const Select = forwardRef(({ children, addClass, placeholder, label, icon
    };
 
    return (
-      <label htmlFor={select} className={`${addClass ?? ""}`}>
+      <label htmlFor={select} >
          <span className={`${!isLabelVisible && "u-sr-only"}`}> {label} </span>
 
-         <div className={css["c-select-wrapper"]}>
+         <div className={`${css["c-select-wrapper"]} ${addClass ?? ""}`}>
             <select
                id={select}
                ref={ref}
@@ -41,7 +41,7 @@ export const Select = forwardRef(({ children, addClass, placeholder, label, icon
                   {placeholder}
                </option>
                {/* Filtramos los children para solo aceptar de tipo option. */}
-               {getChildrenByType(children, ["option"])}
+               {getChildrenByType(children, ["option", "optgroup"])}
             </select>
 
             <Icon name={`${icon ?? "arrow_drop_down"}`} addClass={css["c-select__icon"]} />
