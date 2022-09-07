@@ -22,10 +22,10 @@ export const Select = forwardRef(({ children, addClass, placeholder, label, icon
    };
 
    return (
-      <label htmlFor={select} >
+      <label htmlFor={select} className={`${addClass ?? ""}`}>
          <span className={`${!isLabelVisible && "u-sr-only"}`}> {label} </span>
 
-         <div className={`${css["c-select-wrapper"]} ${addClass ?? ""}`}>
+         <div className={css["c-select-wrapper"]}>
             <select
                id={select}
                ref={ref}
