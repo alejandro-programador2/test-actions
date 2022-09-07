@@ -1,4 +1,6 @@
 import PropTypes from "prop-types";
+
+import { typeValidation } from "utils/validations/typeValidation";
 import css from "./Icon.module.scss";
 
 export const iconList = [
@@ -36,9 +38,10 @@ Icon.propTypes = {
   name: PropTypes.oneOf(iconList),
   size: PropTypes.string,
   addClass: PropTypes.string,
+  __TYPE: typeValidation("Icon"),
 };
 
 Icon.defaultProps = {
-  name: "",
   size: "normal",
+  __TYPE: "Icon",
 };

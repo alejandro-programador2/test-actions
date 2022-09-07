@@ -3,14 +3,14 @@ import React from "react";
 import { Icon, iconList } from "./Icon";
 
 export default {
-  title: "ui-components/Icon",
-  component: Icon,
-  argTypes: {
-    name: {
-      options: iconList,
-      control: { type: "select" },
-    },
-  },
+   title: "ui-components/Icon",
+   component: Icon,
+   argTypes: {
+      name: {
+         options: iconList,
+         control: { type: "select" },
+      },
+   },
 };
 
 const Template = (args) => <Icon {...args} />;

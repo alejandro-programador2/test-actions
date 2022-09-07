@@ -43,5 +43,4 @@ TabPanel.propTypes = {
 
 TabPanel.defaultProps = {
    __TYPE: "TabPanel",
-   addClass: "",
 };

@@ -6,7 +6,7 @@ export const AccordionButton = ({ children, onExpanded, isExpanded, expanded, ad
    return (
       <button
          onClick={onExpanded}
-         className={`${css["c-accordion__button"]} u-flex ${addClass && addClass} ${isExpanded && expanded && expanded}`}
+         className={`${css["c-accordion__button"]} u-flex ${addClass ?? ""} ${isExpanded && expanded && expanded}`}
          aria-expanded={isExpanded}
          {...props}
       >
@@ -28,5 +28,4 @@ AccordionButton.propTypes = {
 
 AccordionButton.defaultProps = {
    __TYPE: "AccordionButton",
-   addClass: "",
 };

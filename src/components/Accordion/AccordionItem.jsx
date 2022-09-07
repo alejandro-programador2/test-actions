@@ -39,7 +39,7 @@ export const AccordionItem = ({ children: childrenProp, id, isOpen, onToggle, ad
    });
 
    return (
-      <div className={`${css["c-accordion__item"]} ${addClass && addClass}`}>
+      <div className={`${css["c-accordion__item"]} ${addClass ?? ""}`}>
          {/* Filtramos los children para solo aceptar de tipo AccordionButton y AccordionPanel. */}
          {getChildrenByType(children, ["AccordionButton", "AccordionPanel"])}
       </div>
@@ -57,5 +57,4 @@ AccordionItem.propTypes = {
 
 AccordionItem.defaultProps = {
    __TYPE: "AccordionItem",
-   addClass: "",
 };

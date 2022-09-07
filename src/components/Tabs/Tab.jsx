@@ -63,5 +63,4 @@ Tab.propTypes = {
 
 Tab.defaultProps = {
    __TYPE: "Tab",
-   addClass: "",
 };
