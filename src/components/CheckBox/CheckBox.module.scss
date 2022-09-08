@@ -64,8 +64,8 @@
 .c-input__icon::before {
   content: "";
   position: absolute;
-  width: 85%;
-  height: 85%;
+  width: 75%;
+  height: 75%;
   border-radius: var(--input-border-radius);
   transform: scale(0);
   transition: 120ms transform ease-in-out;
