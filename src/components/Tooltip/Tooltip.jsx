@@ -1,5 +1,6 @@
-import { useRef, Children, cloneElement, isValidElement, useState } from "react";
+import { useRef, Children, cloneElement, isValidElement, useState, useMemo } from "react";
 import PropTypes from "prop-types";
+import _uniquedId from "lodash/uniqueId";
 
 import { Portal } from "components/Portal/Portal";
 import { usePopper } from "react-popper";
@@ -13,6 +14,8 @@ export const Tooltip = ({ children: childrenProps, label, placement, addClass, h
    const refElement = useRef(null);
    // Referencia del tooltip
    const refTooltip = useRef(null);
+   // Creamos el id relacionar el tooltip con su elemento padre
+   const id = useMemo(() => _uniquedId("c-tooltip-"), []);
 
    // Si no hay label, está deshabilitado o tiene más de 1 hijo no mostrar el tooltip
    if (!label || Children.count(childrenProps) > 1 || isDisabled) {
@@ -60,7 +63,16 @@ export const Tooltip = ({ children: childrenProps, label, placement, addClass, h
    const children = Children.map(childrenProps, (child) => {
       if (!isValidElement(child)) return null;
       // Agregamos todos los eventos al elemento padre.
-      return cloneElement(child, { ...child.props, ref: refElement, onFocus, onBlur, onMouseOver, onMouseOut, onKeyDown });
+      return cloneElement(child, {
+         ...child.props,
+         "aria-describedby": id,
+         ref: refElement,
+         onFocus,
+         onBlur,
+         onMouseOver,
+         onMouseOut,
+         onKeyDown,
+      });
    });
 
    // Hook para controlar el posicionamiento del tooltip con respecto a su elemento padre.
@@ -88,7 +100,9 @@ export const Tooltip = ({ children: childrenProps, label, placement, addClass, h
          {children}
          <Portal id="tooltip-portal">
             <div
+               id={id}
                ref={refTooltip}
+               role="tooltip"
                className={`${css["c-tooltip"]} ${isOpen && css["c-tooltip--active"]} ${addClass ?? ""}`}
                style={styles.popper}
                {...attributes.popper}
