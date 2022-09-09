@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from "react";
-import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
 import "wicg-inert";
 
-import { Button } from "../Button/Button";
-import { iconList } from "../Icon/Icon";
+import { Button } from "components/Button/Button";
+import { iconList } from "components/Icon/Icon";
+import { Portal } from "components/Portal/Portal";
 
 import css from "./Modal.module.scss";
 
@@ -65,32 +65,29 @@ export const Modal = ({ button, addClass, children, onOpen, ...props }) => {
             addClass={button.addClass}
             onClick={() => toggleModal(false)}
          />
-         {ReactDOM.createPortal(
-            <>
-               <div className={css["c-layout"]} onClick={() => toggleModal(true)} hidden={hiddenModal}></div>
-               <div
-                  role="dialog"
-                  tabIndex="-1"
-                  hidden={hiddenModal}
-                  aria-label={button.label}
-                  ref={refModal}
-                  onKeyDown={closeModalOnEsc}
-                  aria-modal="true"
-                  className={`${css["c-modal"]} u-px-3 u-py-3 ${addClass ?? ""}`}
-                  {...props}
-               >
-                  <div className={`${css["c-modal-container"]} u-flow`}>{children}</div>
-                  <Button
-                     addClass={css["c-close-button"]}
-                     label="Cerrar modal"
-                     hasAriaLabel={true}
-                     icon={{ name: "close" }}
-                     onClick={() => toggleModal(true)}
-                  />
-               </div>
-            </>,
-            document.getElementById("modal")
-         )}
+         <Portal id="modal">
+            <div className={css["c-layout"]} onClick={() => toggleModal(true)} hidden={hiddenModal}></div>
+            <div
+               role="dialog"
+               tabIndex="-1"
+               hidden={hiddenModal}
+               aria-label={button.label}
+               ref={refModal}
+               onKeyDown={closeModalOnEsc}
+               aria-modal="true"
+               className={`${css["c-modal"]} u-px-3 u-py-3 ${addClass ?? ""}`}
+               {...props}
+            >
+               <div className={`${css["c-modal-container"]} u-flow`}>{children}</div>
+               <Button
+                  addClass={css["c-close-button"]}
+                  label="Cerrar modal"
+                  hasAriaLabel={true}
+                  icon={{ name: "close" }}
+                  onClick={() => toggleModal(true)}
+               />
+            </div>
+         </Portal>
       </>
    );
 };

@@ -1,4 +1,4 @@
-import { React } from "react";
+import React from "react";
 
 import { Input } from "./Input";
 import { InputStyle } from "./InputStyle";
@@ -19,6 +19,7 @@ export default {
 };
 
 export const Default = () => <Input />;
+
 Default.storyName = "default";
 
 export const WithLeftAddon = () => (
