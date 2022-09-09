@@ -5,6 +5,11 @@ import css from "./CheckBoxGroup.module.scss";
 
 export const CheckBoxGroup = ({ legend, children: childrenProps, onChecked }) => {
    const [checked, setChecked] = useState([]);
+
+   /**
+    * Detecta cada vez que un input está seleccionado y lo agrega a un array
+    * @param { value } - Array de opciones seleccionadas
+    */
    const detectCheckedValues = (value) => {
       const validate = checked.filter((option) => option.id === value.id);
 

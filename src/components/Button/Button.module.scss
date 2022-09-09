@@ -1,6 +1,9 @@
-:where(.c-button) {
+.c-button {
   --outline-color: var(--clr-primary-800);
   --gap: 0.5em;
+}
+
+:where(.c-button) {
   justify-content: center;
   align-items: center;
   border-color: transparent;
@@ -26,56 +29,55 @@
 
 // Definición de padding y font size
 
-:where(.c-button.c-small) {
+.c-button:where(.c-small) {
   --button-padding: var(--padding-1);
   --button-font-size: var(--fs-200);
 }
 
-:where(.c-button.c-normal) {
+.c-button:where(.c-normal) {
   --button-padding: var(--padding-1) var(--padding-2);
   --button-font-size: var(--fs-300);
 }
 
-:where(.c-button.c-big) {
+.c-button:where(.c-big) {
   --button-padding: var(--padding-2) var(--padding-3);
   --button-font-size: var(--fs-400);
 }
 
-:where(.c-button.c-round.c-small, .c-button.c-round.c-normal) {
+.c-button:where(.c-round.c-small, .c-round.c-normal) {
   --button-padding: var(--padding-1);
 }
 
-:where(.c-button.c-round.c-big) {
+.c-button:where(.c-round.c-big) {
   --button-padding: var(--padding-2);
 }
 
 // Definición de colores
 
-:where(.c-button.c-primary) {
+.c-button:where(.c-primary) {
   --button-border-color: transparent;
   --button-bg-color: var(--clr-primary-800);
   --button-text-color: var(--clr-neutral-100);
 }
 
-:where(.c-button.c-secondary) {
+.c-button:where(.c-secondary) {
   --button-border-color: var(--clr-primary-800);
   --button-bg-color: transparent;
   --button-text-color: var(--clr-primary-800);
 }
 
-:where(.c-button.c-no-line) {
+.c-button:where(.c-no-line) {
   --button-border-color: transparent;
   --button-bg-color: transparent;
   --button-text-color: var(--clr-primary-800);
 }
 
-:where(.c-button.c-no-line:hover) {
+.c-button:where(.c-no-line:hover) {
   --button-bg-color: var(--clr-primary-300);
 }
 
-:where(.c-button[disabled]) {
+.c-button:where([disabled]) {
   --button-bg-color: var(--clr-neutral-500);
   --button-text-color: var(--clr-primary-100);
-  text-decoration-line: line-through;
   cursor: not-allowed;
 }

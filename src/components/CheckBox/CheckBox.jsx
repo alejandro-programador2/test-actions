@@ -20,12 +20,22 @@ export const CheckBox = ({ type, label, state, name, onClick, addClass, ...args 
 
    const [value, SetValue] = useState(name);
 
+   /**
+    * Detecta cuando se el input se activa o se desactiva y trae el id y el value
+    * @param { target } - Nodo del DOM
+    */
+
    const onChange = ({ target }) => {
       if (onClick) {
          onClick({ id: target.id, value: target.value });
       }
       SetValue(target.value);
    };
+
+   /**
+    * Determina el nombre del ícono
+    * @returns String del nombre del ícono
+    */
 
    const handleIconName = () => {
       if (state === "right") {
