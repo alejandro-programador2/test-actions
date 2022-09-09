@@ -1,21 +1,21 @@
-:where(.c-input) {
+.c-input {
   --gap: 0.5em;
   --input-color: var(--clr-primary-700);
 }
 
-:where(.c-input[data-state="right"]) {
+.c-input:where([data-state="right"]) {
   --input-color: var(--clr-success-600);
 }
 
-:where(.c-input[data-state="wrong"]) {
+.c-input:where([data-state="wrong"]) {
   --input-color: var(--clr-error-600);
 }
 
-:where(.c-input[data-type="radio"]) {
+.c-input:where([data-type="radio"]) {
   --input-border-radius: 50%;
 }
 
-:where(.c-input[data-type="checkbox"]) {
+.c-input:where([data-type="checkbox"]) {
   --input-border-radius: 0.4375rem;
 }
 
@@ -64,8 +64,8 @@
 .c-input__icon::before {
   content: "";
   position: absolute;
-  width: 85%;
-  height: 85%;
+  width: 75%;
+  height: 75%;
   border-radius: var(--input-border-radius);
   transform: scale(0);
   transition: 120ms transform ease-in-out;

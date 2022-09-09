@@ -1,8 +1,10 @@
 import PropTypes from "prop-types";
 import _uniqueId from "lodash/uniqueId";
+import { useState, useMemo } from "react";
 
 import { Icon } from "../Icon/Icon";
 import css from "./CheckBox.module.scss";
+import { typeValidation } from "utils/validations/typeValidation";
 
 /**
  * Usuario: bb-frontend-7
@@ -13,8 +15,27 @@ import css from "./CheckBox.module.scss";
  * - addClass: clase adicional que se necesite agregar al input
  **/
 
-export const CheckBox = ({ type, label, state, name, addClass, ...args }) => {
-   const id = _uniqueId("ui-");
+export const CheckBox = ({ type, label, state, name, onClick, addClass, ...args }) => {
+   const id = useMemo(() => _uniqueId(`ui-${type}`), []);
+
+   const [value, SetValue] = useState(name);
+
+   /**
+    * Detecta cuando se el input se activa o se desactiva y trae el id y el value
+    * @param { target } - Nodo del DOM
+    */
+
+   const onChange = ({ target }) => {
+      if (onClick) {
+         onClick({ id: target.id, value: target.value });
+      }
+      SetValue(target.value);
+   };
+
+   /**
+    * Determina el nombre del ícono
+    * @returns String del nombre del ícono
+    */
 
    const handleIconName = () => {
       if (state === "right") {
@@ -31,7 +52,7 @@ export const CheckBox = ({ type, label, state, name, addClass, ...args }) => {
    return (
       <label htmlFor={id} className={`${css["c-input"]} u-flex ${addClass ?? ""}`} data-state={state} data-type={type} {...args}>
          <div className={css["c-input__box"]}>
-            <input className={css["c-input__check"]} data-state={state} type={type} id={id} name={name} />
+            <input onChange={onChange} className={css["c-input__check"]} data-state={state} type={type} id={id} name={name} value={value} />
             <div className={css["c-input__icon"]}>
                <Icon name={handleIconName()} />
             </div>
@@ -47,6 +68,8 @@ CheckBox.propTypes = {
    type: PropTypes.oneOf(["radio", "checkbox"]),
    name: PropTypes.string,
    addClass: PropTypes.string,
+   onClick: PropTypes.func,
+   __TYPE: typeValidation("CheckBox"),
 };
 
 CheckBox.defaultProps = {
@@ -54,4 +77,5 @@ CheckBox.defaultProps = {
    state: "normal",
    type: "radio",
    name: "option1",
+   __TYPE: "CheckBox",
 };
