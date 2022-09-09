@@ -1,0 +1,147 @@
+.c-vid-container figcaption {
+  margin-top: 1.5em;
+  text-align: center;
+}
+
+.c-vid {
+  position: relative;
+  display: grid;
+  margin-inline: auto;
+  color: #fff;
+  box-sizing: border-box;
+  padding: 0.625rem;
+}
+
+.c-vid video {
+  outline: none;
+  height: 100%;
+  width: 100%;
+}
+
+.c-vid-controls {
+  display: grid;
+  align-items: center;
+  grid-template-columns: 2.75rem auto auto 1fr 2.75rem 2.75rem;
+  max-height: 1.75rem;
+  max-width: calc(100% - 0.3rem);
+  grid-gap: 0.5rem;
+  padding: 0 0.2rem;
+  background-color: var(--clr-complementary-900);
+}
+
+@media screen and (display-mode: fullscreen) {
+  .c-vid {
+    display: grid;
+    height: 100vh;
+    grid-template-rows: calc(100vh - 4rem) 4rem;
+  }
+}
+
+.c-vid-controls button {
+  display: grid;
+  place-items: center;
+  padding: 0.2em;
+  height: 100%;
+  width: auto;
+  color: #fff;
+  border: 0.125rem solid transparent;
+  background-color: transparent;
+  border-radius: 3.2px;
+  cursor: pointer;
+  border-radius: 0.5em;
+}
+
+.c-vid-controls button:focus {
+  outline: 0.0625rem solid whitesmoke;
+  outline-offset: -4px;
+}
+
+.c-vid-controls svg {
+  height: 2.375rem;
+  width: 100%;
+  fill: currentColor;
+}
+
+.c-vid-controls-text {
+  margin: 0;
+}
+
+.c-vid-controls-text {
+  width: 100%;
+  font-variant-numeric: tabular-nums;
+}
+
+.progress {
+  display: flex;
+  flex-basis: 100%;
+  height: 6px;
+  transition: height 0.3s;
+  background: rgba(255, 255, 255, 0.9);
+  cursor: pointer;
+  position: relative;
+}
+
+.flex {
+  display: flex;
+  align-items: center;
+}
+
+.progress-bar {
+  width: 50%;
+  background-color: var(--primaryColor);
+  flex: 0;
+  flex-basis: 0%;
+}
+
+.c-vid-controls-volume {
+  display: grid;
+  grid-template-columns: auto 1fr;
+}
+
+.c-vid-controls-volume label {
+  display: grid;
+}
+
+.c-vid-controls-volume label:focus-within {
+  background-color: var(--tertiaryColorDark);
+}
+
+.c-vid-controls-volume input {
+  background-color: #fff;
+}
+
+.c-vid-controls-volume input:focus {
+  outline: 2px solid transparent;
+}
+
+.c-vid-controls-volume-item[type="range"] {
+  width: 100%;
+  accent-color: var(--primaryColor);
+}
+
+.c-vid video::cue {
+  visibility: visible;
+  color: white;
+  background-color: #2f4f4f;
+  font-family: "Source Sans Pro", sans-serif;
+}
+
+.c-vid video::cue(i) {
+  font-style: italic;
+  color: rgb(249, 205, 160);
+}
+
+.c-vid video.no-captions::cue {
+  visibility: hidden;
+}
+
+.subtitles[aria-pressed="true"] {
+  color: #07353d;
+  background-color: whitesmoke;
+  border: 2px solid transparent;
+}
+
+.subtitles[aria-pressed="true"]:hover {
+  background-color: rgb(255 255 255 / 30%);
+  color: whitesmoke;
+}
