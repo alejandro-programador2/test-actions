@@ -1,7 +1,8 @@
+import { createRef, useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import React, { createRef, useState, useEffect } from "react";
 import css from "./Video.module.scss";
-import { Icon } from "../Icon/Icon";
+
+import { Icon } from "components/Icon";
 
 /**
  * Usuario: bb-frontend-7
@@ -13,7 +14,7 @@ import { Icon } from "../Icon/Icon";
  * - content: descripción del caption del video.
  * - addClass: clase adicional que se le agregue al reproductor.
  **/
-function Video({ url, width = "1000", hasDescription, description, addClass, src, poster, ...props }) {
+export const Video = ({ url, width = "1000", hasDescription, description, addClass, src, poster, ...props }) => {
    // Estado duracion del video
    const [getDurationVideo, setDurationVideo] = useState("00:00");
 
@@ -223,15 +224,10 @@ function Video({ url, width = "1000", hasDescription, description, addClass, src
       const storage = JSON.parse(localStorage.getItem("ui-video")) || {};
       if (Object.prototype.hasOwnProperty.call(storage, "caption")) {
          setCaptions(JSON.parse(localStorage.getItem("ui-video")).caption);
-         console.log(JSON.parse(localStorage.getItem("ui-video")).caption);
       }
       if (Object.prototype.hasOwnProperty.call(storage, "volume")) {
          setValueVolume(JSON.parse(localStorage.getItem("ui-video")).volume);
-         console.log(JSON.parse(localStorage.getItem("ui-video")).volume);
       }
-      // if (localStorage.getItem("video-volume")) {
-      //    setValueVolume(localStorage.getItem("video-volume"));
-      // }
    }, []);
 
    useEffect(() => {
@@ -248,7 +244,7 @@ function Video({ url, width = "1000", hasDescription, description, addClass, src
                   handleTimeProcess();
                }}
                className={`${captions ? "" : css["no-captions"]}`}
-               poster={`assets/images/${poster}.png`}
+               poster={poster && `assets/images/${poster}.png`}
             >
                <source src={url} />
                <track src={src} label="Spanish subtitles" kind="subtitles" srcLang="es" default />
@@ -299,18 +295,14 @@ function Video({ url, width = "1000", hasDescription, description, addClass, src
                </button>
             </div>
          </div>
-         {hasDescription ? (
+         {hasDescription && (
             <figcaption>
                <strong>{description.title}:</strong> {description.content}
             </figcaption>
-         ) : (
-            <></>
          )}
       </figure>
    );
-}
-
-export { Video };
+};
 
 Video.propTypes = {
    url: PropTypes.string.isRequired,
@@ -323,8 +315,4 @@ Video.propTypes = {
    }),
    src: PropTypes.string,
    poster: PropTypes.string,
-};
-
-Video.defaultProps = {
-   addClass: "",
 };
