@@ -32,6 +32,8 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: '14.x'
+      - name: 'clean cache'
+        run: npm cache clean --force
       - name: Restore npm dependencies
         uses: actions/cache@v2
         id: npm-cache
@@ -50,9 +52,8 @@ jobs:
           npx concurrently -k -s first -n "SB,TEST" -c "magenta,blue" \
             "npx http-server storybook-static --port 6006 --silent" \
             "npx wait-on tcp:6006 && npm run test-storybook"
-      - name: Setup tmate session
-        if: success() || failure()
-        uses: mxschmitt/action-tmate@v3
+  
+
   # # Run visual and composition tests with Chromatic
   # visual-and-composition:
   #   runs-on: ubuntu-latest
