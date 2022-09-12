@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import React, { createRef, useState } from "react";
+import React, { createRef, useState, useEffect } from "react";
 import css from "./Video.module.scss";
 import { Icon } from "../Icon/Icon";
 
@@ -31,7 +31,7 @@ function Video({ url, width = "1000", hasDescription, description, addClass, src
       state: true,
       label: "Volumen",
    });
-   const [getValueVolumMuted, setValueVolumnMuted] = useState(25);
+   const [getValueVolumeeMuted, setValueVolumeMuted] = useState(100);
 
    // Estado de la pantalla completa
    const [getStateScreen, setStateScreen] = useState({
@@ -39,12 +39,12 @@ function Video({ url, width = "1000", hasDescription, description, addClass, src
       label: "Ver en pantalla completa",
    });
 
-   const [getValueVolum, setValueVolumn] = useState(25);
+   const [getValueVolume, setValueVolume] = useState(100);
    const refCont = createRef();
    const refVideo = createRef();
    const refProgress = createRef();
    const refProgressBar = createRef();
-   const refVolumn = createRef();
+   const refVolume = createRef();
    const [captions, setCaptions] = useState(false);
 
    // funcion de click del play
@@ -115,7 +115,7 @@ function Video({ url, width = "1000", hasDescription, description, addClass, src
       const video = refVideo.current;
       const progressElem = refProgressBar.current;
       const porcent = (video.currentTime / video.duration) * 100;
-      progressElem.style.flexBasis = `${porcent}%`;
+      progressElem.style.flexBasis = `max(1%, ${porcent}%)`;
    }
 
    // tiempo de video y de progreso
@@ -133,16 +133,21 @@ function Video({ url, width = "1000", hasDescription, description, addClass, src
 
       // funcion saca segundos, minutos, horas
       function hourToString(timeSeconds) {
-         const secundsNumber = parseInt(timeSeconds, 10);
-         const hours = Math.floor(secundsNumber / 3600);
-         const minutes = Math.floor((secundsNumber - hours * 3600) / 60);
-         const seconds = secundsNumber - hours * 3600 - minutes * 60;
+         const secondsNumber = parseInt(timeSeconds, 10);
+         const hours = secondsNumber >= 3600 ? Math.floor(secondsNumber / 3600) : "0";
+         const minutes = Math.floor((secondsNumber - hours * 3600) / 60);
+         const seconds = secondsNumber - hours * 3600 - minutes * 60;
          // valores validados si son mas de dos digitos
-         const valisateHours = validateIsNan(validateDigits(hours));
+         const validateHours = validateIsNan(validateDigits(hours));
          // se valida si el value es NaN
          const validateMinutes = validateIsNan(validateDigits(minutes));
          const validateSeconds = validateIsNan(validateDigits(seconds));
-         return `${valisateHours}:${validateMinutes}:${validateSeconds}`;
+
+         if (secondsNumber <= 3600) {
+            return `${validateMinutes}:${validateSeconds}`;
+         } else {
+            return `${hours === 0 ? "" : validateHours}:${validateMinutes}:${validateSeconds}`;
+         }
       }
 
       // funcion para validar la cantidad de digitos y agregarles el 0
@@ -169,12 +174,12 @@ function Video({ url, width = "1000", hasDescription, description, addClass, src
    }
 
    // funcion para el volumen
-   function handleVolumn(e) {
+   function handleVolume(e) {
       const video = refVideo.current;
       const value = e.target.value;
       const volume = value / 100;
-      setValueVolumn(value);
-      setValueVolumnMuted(value);
+      setValueVolume(value);
+      setValueVolumeMuted(value);
       video.volume = volume;
 
       if (!getStateMuted.state) {
@@ -195,7 +200,7 @@ function Video({ url, width = "1000", hasDescription, description, addClass, src
          const video = refVideo.current;
          const value = 0;
          const volume = value;
-         setValueVolumn(value);
+         setValueVolume(value);
          video.volume = volume;
       } else {
          setStateMuted({
@@ -203,9 +208,9 @@ function Video({ url, width = "1000", hasDescription, description, addClass, src
             label: "Volumen",
          });
          const video = refVideo.current;
-         const value = getValueVolumMuted;
+         const value = getValueVolumeeMuted;
          const volume = value / 100;
-         setValueVolumn(value);
+         setValueVolume(value);
          video.volume = volume;
       }
    };
@@ -214,13 +219,32 @@ function Video({ url, width = "1000", hasDescription, description, addClass, src
       setCaptions(!captions);
    };
 
+   useEffect(() => {
+      const storage = JSON.parse(localStorage.getItem("ui-video")) || {};
+      if (Object.prototype.hasOwnProperty.call(storage, "caption")) {
+         setCaptions(JSON.parse(localStorage.getItem("ui-video")).caption);
+         console.log(JSON.parse(localStorage.getItem("ui-video")).caption);
+      }
+      if (Object.prototype.hasOwnProperty.call(storage, "volume")) {
+         setValueVolume(JSON.parse(localStorage.getItem("ui-video")).volume);
+         console.log(JSON.parse(localStorage.getItem("ui-video")).volume);
+      }
+      // if (localStorage.getItem("video-volume")) {
+      //    setValueVolume(localStorage.getItem("video-volume"));
+      // }
+   }, []);
+
+   useEffect(() => {
+      localStorage.setItem("ui-video", JSON.stringify({ caption: captions, volume: getValueVolume }));
+   }, [captions, getValueVolume]);
+
    return (
       <figure className={`${css["c-vid-container"]} ${addClass}`} {...props}>
          <div className={`${css["c-vid"]} ${addClass}`} ref={refCont} style={{ maxWidth: `${width}px` }}>
             <video
                ref={refVideo}
                onTimeUpdate={() => {
-                  handleBarProgress();
+                  // handleBarProgress();
                   handleTimeProcess();
                }}
                className={`${captions ? "" : css["no-captions"]}`}
@@ -230,28 +254,34 @@ function Video({ url, width = "1000", hasDescription, description, addClass, src
                <track src={src} label="Spanish subtitles" kind="subtitles" srcLang="es" default />
             </video>
 
+            <div className={css["progress-content"]}>
+               <div ref={refProgress} className={css.progress} onClick={handleProcessControl}>
+                  <div ref={refProgressBar} className={css["progress-bar"]} onChange={handleBarProgress} />
+               </div>
+            </div>
+
             <div className={css["c-vid-controls"]}>
                <button aria-label={getstateVideoPlay.label} onClick={handlePlay} className={"tour"} data-description="Este botón reproduce el video">
-                  <Icon name={getstateVideoPlay.state ? "play" : "pause"} />
+                  <Icon name={getstateVideoPlay.state ? "pause" : "play"} />
                </button>
 
                <div className={css.flex}>
                   <button aria-label={getStateMuted.label} className={"tour"} data-description="Este botón controla el volumen" onClick={handleMuted}>
                      <Icon name={getStateMuted.state ? "volume_on" : "volume_off"} />
                   </button>
-                  <label htmlFor="volumeControl">
+                  <label className={css["c-vid-controls-volume"]} htmlFor="volumeControl">
                      <span className="u-sr-only">Controlar volumen</span>
                      <input
                         className={css["c-vid-controls-volume-item"]}
-                        ref={refVolumn}
+                        ref={refVolume}
                         id="volumeControl"
                         type="range"
                         min="0"
                         max="100"
                         step="5"
-                        value={getValueVolum}
-                        onChange={handleVolumn}
-                        aria-valuetext={`${getValueVolum}%`}
+                        value={getValueVolume}
+                        onChange={handleVolume}
+                        aria-valuetext={`${getValueVolume}%`}
                      />
                   </label>
                </div>
@@ -259,12 +289,6 @@ function Video({ url, width = "1000", hasDescription, description, addClass, src
                <p className={css["c-vid-controls-text"]}>
                   <span>{getCurrentTime}</span>/<span>{getDurationVideo}</span>
                </p>
-
-               <div className={css["progress-content"]}>
-                  <div ref={refProgress} className={css.progress} onClick={handleProcessControl}>
-                     <div ref={refProgressBar} className={css["progress-bar"]} onChange={handleBarProgress} />
-                  </div>
-               </div>
 
                <button aria-pressed={captions} onClick={handleCaptions} aria-label="Subtítulos" className={css.subtitles}>
                   <Icon name="closed_caption" />

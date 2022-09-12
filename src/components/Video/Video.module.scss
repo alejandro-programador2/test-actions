@@ -6,10 +6,21 @@
 .c-vid {
   position: relative;
   display: grid;
+  grid-template-rows: auto 6px 2.8125rem;
   margin-inline: auto;
   color: #fff;
   box-sizing: border-box;
   padding: 0.625rem;
+
+  @media screen and (display-mode: fullscreen) {
+    display: grid;
+    height: 100vh;
+    grid-template-rows: calc(100vh - 6px - 3rem) 6px 3rem;
+
+    & > * {
+      width: 100%;
+    }
+  }
 }
 
 .c-vid video {
@@ -19,47 +30,33 @@
 }
 
 .c-vid-controls {
-  display: grid;
+  display: flex;
+  justify-content: center;
   align-items: center;
-  grid-template-columns: 2.75rem auto auto 1fr 2.75rem 2.75rem;
-  max-height: 1.75rem;
-  max-width: calc(100% - 0.3rem);
-  grid-gap: 0.5rem;
-  padding: 0 0.2rem;
+  gap: 0.5rem;
+  padding: 0.1rem 0.2rem;
+  height: 100%;
   background-color: var(--clr-complementary-900);
-}
-
-@media screen and (display-mode: fullscreen) {
-  .c-vid {
-    display: grid;
-    height: 100vh;
-    grid-template-rows: calc(100vh - 4rem) 4rem;
-  }
 }
 
 .c-vid-controls button {
   display: grid;
   place-items: center;
-  padding: 0.2em;
+  // padding: 0.2em;
   height: 100%;
   width: auto;
+  font-size: 1.5rem;
   color: #fff;
   border: 0.125rem solid transparent;
   background-color: transparent;
   border-radius: 3.2px;
   cursor: pointer;
   border-radius: 0.5em;
+  aspect-ratio: 1;
 }
 
 .c-vid-controls button:focus {
-  outline: 0.0625rem solid whitesmoke;
-  outline-offset: -4px;
-}
-
-.c-vid-controls svg {
-  height: 2.375rem;
-  width: 100%;
-  fill: currentColor;
+  --outline-offset: -4px;
 }
 
 .c-vid-controls-text {
@@ -76,9 +73,10 @@
   flex-basis: 100%;
   height: 6px;
   transition: height 0.3s;
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(20 20 20 / 0.3);
   cursor: pointer;
   position: relative;
+  isolation: isolate;
 }
 
 .flex {
@@ -87,23 +85,36 @@
 }
 
 .progress-bar {
+  position: relative;
   width: 50%;
-  background-color: var(--primaryColor);
+  background-color: var(--clr-primary-300);
   flex: 0;
-  flex-basis: 0%;
+  flex-basis: 1%;
+}
+
+.progress-bar::after {
+  content: "";
+  position: absolute;
+  inset-block: -0.125rem;
+  inset-inline-end: -0.125rem;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background-color: var(--clr-primary-300);
 }
 
 .c-vid-controls-volume {
   display: grid;
-  grid-template-columns: auto 1fr;
+  place-items: center;
+  border-radius: 0.5rem;
+
+  @media screen and (max-width: 500px) {
+    display: none;
+  }
 }
 
-.c-vid-controls-volume label {
-  display: grid;
-}
-
-.c-vid-controls-volume label:focus-within {
-  background-color: var(--tertiaryColorDark);
+.c-vid-controls-volume:focus-within {
+  outline: max(2px, 0.08em) solid whitesmoke;
+  outline-offset: max(2px, 0.08em);
 }
 
 .c-vid-controls-volume input {
@@ -115,8 +126,9 @@
 }
 
 .c-vid-controls-volume-item[type="range"] {
-  width: 100%;
-  accent-color: var(--primaryColor);
+  display: block;
+  width: 5rem;
+  accent-color: var(--clr-primary-300);
 }
 
 .c-vid video::cue {
@@ -136,7 +148,7 @@
 }
 
 .subtitles[aria-pressed="true"] {
-  color: #07353d;
+  color: var(--clr-complementary-900);
   background-color: whitesmoke;
   border: 2px solid transparent;
 }
